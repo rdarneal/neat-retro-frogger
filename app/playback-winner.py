@@ -4,6 +4,24 @@ import cv2
 import neat
 import pickle
 from visualize import plot_stats, plot_species
+from matplotlib import animation
+import matplotlib.pyplot as plt
+
+
+def save_frames_as_gif(frames, path='./', filename='gym_animation.gif'):
+	"""
+	This function allows you to save the winner as a gif
+	Ensure you have imagemagick installed and added to your path
+	"""
+	plt.figure(figsize=(frames[0].shape[1] / 72.0, frames[0].shape[0] / 72.0), dpi=72)
+	patch = plt.imshow(frames[0])
+	plt.axis('off')
+	def animate(i):
+		patch.set_data(frames[i])
+
+	anim = animation.FuncAnimation(plt.gcf(), animate, frames = len(frames), interval=50)
+	anim.save(path + filename, writer='imagemagick', fps=60)
+
 
 # load the winner
 winning_data = []
@@ -30,10 +48,12 @@ current_max_fitness = 0
 fitness_current = 0
 frames = 0
 imgarray = []
+gif = []
 done = False
 
 while not done:
 	env.render() # render the ROM to see on your screen
+	gif.append(env.render(mode='rgb_array'))
 	ob = cv2.resize(ob, (inx, iny)) # resize the observation space
 	ob = cv2.cvtColor(ob, cv2.COLOR_BGR2GRAY) # convert to greyscale
 	ob = np.reshape(ob, (inx, iny)) # reshape the observation space
@@ -65,6 +85,7 @@ while not done:
 	
 	winner.fitness = fitness_current
 
+# save_frames_as_gif(gif, path='./', filename='winner.gif')
 # draw_net(config, winner, True)
 # draw_net(config, winner, True, prune_unused=True)
 plot_stats(stats, ylog=False, view=True)
