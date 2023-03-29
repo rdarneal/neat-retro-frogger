@@ -29,9 +29,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -105,13 +103,11 @@ python app/playback-winner.py
 ```
 Which shows how species performed over multiple generations
 
-Fig 1. Species Lifetime
-![](winner/speciation.svg)
+![Fig 1. Species Lifetime](winner/speciation.svg)
 
 Along with the average fitness over time, determined by the retro-gym reward function (in this case tied to how well frogger crosses traffic)
 
-Fig 2. Fitness
-![](/winner/avg_fitness.svg)
+![Fig 2. Fitness](/winner/avg_fitness.svg)
 
 ## To configure or modify
 By default, each generation includes a population of 100, and random values are passed to the retro-environment in order to control frogger.
